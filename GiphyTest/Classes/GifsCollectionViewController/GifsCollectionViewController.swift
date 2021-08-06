@@ -76,17 +76,17 @@ class GifsCollectionViewController: UIViewController, UICollectionViewDataSource
     }
     
     private func createLayout() -> UICollectionViewLayout {
-        let spacing: CGFloat = 10
+        let spacing: CGFloat = 5
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(0.0),
+            widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = .init(top: spacing, leading: spacing, bottom: spacing, trailing: spacing)
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalWidth(0.5))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
+            heightDimension: .fractionalHeight(0.2))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 3)
         
         let section = NSCollectionLayoutSection(group: group)
         let layout = UICollectionViewCompositionalLayout(section: section)
@@ -106,6 +106,7 @@ class GifsCollectionViewController: UIViewController, UICollectionViewDataSource
         cell.tag = indexPath.row
         
         guard let gifImageId = self.gifList?[indexPath.item].id else { return GifCollectionCell() }
+        
         cell.activityIndicator.startAnimating()
         self.apiService.loadImage(id: gifImageId, needGif: true) { [weak self] result in
             switch result {

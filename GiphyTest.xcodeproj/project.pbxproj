@@ -26,6 +26,7 @@
 		90CA150D26BC1635006FDEAB /* GifCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CA150C26BC1635006FDEAB /* GifCollectionCell.swift */; };
 		90CA150F26BC1672006FDEAB /* GifCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CA150E26BC1672006FDEAB /* GifCollectionCell.xib */; };
 		90CA151426BC2086006FDEAB /* UIViewController+ShowError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CA151326BC2086006FDEAB /* UIViewController+ShowError.swift */; };
+		90F88C8D26BD0AB700CDD716 /* URL+getData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F88C8C26BD0AB700CDD716 /* URL+getData.swift */; };
 		D8C923E61DB16CD2662F323C /* Pods_GiphyTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9015B733FE5F6A73A1CFFA9 /* Pods_GiphyTest.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,7 @@
 		90CA150C26BC1635006FDEAB /* GifCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifCollectionCell.swift; sourceTree = "<group>"; };
 		90CA150E26BC1672006FDEAB /* GifCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GifCollectionCell.xib; sourceTree = "<group>"; };
 		90CA151326BC2086006FDEAB /* UIViewController+ShowError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ShowError.swift"; sourceTree = "<group>"; };
+		90F88C8C26BD0AB700CDD716 /* URL+getData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+getData.swift"; sourceTree = "<group>"; };
 		B9015B733FE5F6A73A1CFFA9 /* Pods_GiphyTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GiphyTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -115,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				90CA151326BC2086006FDEAB /* UIViewController+ShowError.swift */,
+				90F88C8C26BD0AB700CDD716 /* URL+getData.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 			files = (
 				90CA14F626BBC6D9006FDEAB /* APIDataModel.swift in Sources */,
 				90CA14FC26BBCA1C006FDEAB /* GiphyApiService.swift in Sources */,
+				90F88C8D26BD0AB700CDD716 /* URL+getData.swift in Sources */,
 				90CA150426BBD5C5006FDEAB /* ApiConfiguration.swift in Sources */,
 				90CA14F826BBC71F006FDEAB /* CategoryModel.swift in Sources */,
 				90CA14FA26BBC7E6006FDEAB /* GifModel.swift in Sources */,

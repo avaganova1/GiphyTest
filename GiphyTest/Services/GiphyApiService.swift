@@ -11,6 +11,8 @@ import SwiftGifOrigin
 
 class GiphyApiService: GiphyApiServiceProtocol {
     
+    private let semaphore = DispatchSemaphore(value: 4)
+    
     func loadCategories(completion: @escaping (Result<[CategoryModel], Error>) -> Void) {
         let parameters: Parameters = Parameters(dictionaryLiteral: ApiConfiguration().api_token)
         
@@ -27,35 +29,36 @@ class GiphyApiService: GiphyApiServiceProtocol {
         })
     }
     
-    func loadImage(id:String, needGif: Bool = false, completion: @escaping (Swift.Result<UIImage, Error>) -> Void) {
+    func loadImage(id: String, needGif: Bool = false, completion: @escaping (Swift.Result<UIImage?, Error>) -> Void) {
         let parameters: Parameters = Parameters(dictionaryLiteral: ApiConfiguration().api_token)
-        let semaphore = DispatchSemaphore(value: 1)
+        var image: UIImage?
         
         AF.request(RequestPath.url, parameters: parameters, requestModifier: { request in
             request.url?.appendPathComponent(RequestPath.version)
             request.url?.appendPathComponent(RequestPath.ApiMethod.gifs.rawValue)
             request.url?.appendPathComponent(id)
-        }).responseDecodable(of: APIDataModel<GifModel>.self, queue: .global(qos: .background), completionHandler: { response in
+        }).responseDecodable(of: APIDataModel<GifModel>.self, queue: .global(qos: .background), completionHandler: { [weak self] response in
             if let error = response.error {
                 completion(.failure(error))
-                semaphore.signal()
+                self?.semaphore.signal()
                 return
             }
             
-            guard let gifUrl = response.value?.data.images.downsized_medium.url else { return }
+            guard let gifUrlString = response.value?.data.images.downsized_medium.url,
+                  let gifUrl = URL(string: gifUrlString) else { return }
             
-            if let gif = UIImage.gif(url: gifUrl), needGif {
-                completion(.success(gif))
-                semaphore.signal()
-                return
+            gifUrl.getData { data, _, error in
+                if let error = error { completion(.failure(error)); return }
+                guard let data = data else { return }
+                
+                if needGif {
+                    image = UIImage.gif(data: data)
+                } else {
+                    image = UIImage(data: data)
+                }
+                completion(.success(image))
+                self?.semaphore.signal()
             }
-            
-            guard let url = URL(string: gifUrl),
-                let gifData = try? Data(contentsOf: url),
-                let gifImage = UIImage(data: gifData) else { return }
-            
-            completion(.success(gifImage))
-            semaphore.signal()
         })
     }
     
